@@ -20,6 +20,10 @@
           <a href="#" onclick="button(`comet://settings`)">
             <span><i class="fa-solid fa-gear"></i></span>
           </a>
+          <span style="width: 16px;"></span>
+          <a href="#" onclick="reload()">
+            <span><i class="fa-solid fa-arrow-rotate-right"></i></i></span>
+          </a>
         </span>
         <div id="window-controls">
           <div class="button" id="min-button">
@@ -138,7 +142,7 @@
           main.innerHTML=null
           main.appendChild(webview)
           
-          focusedTab.querySelector("#title").innerText=value
+          focusedTab.querySelector("#title").innerText=value.substr(0,20)
           webview.addEventListener('dom-ready', () => {
             focusedTab.querySelector("#title").innerText=webview.getTitle().split(' ')[0]
           })
@@ -159,6 +163,10 @@
             `
           }
         }
+      }
+      function reload() {
+        const webview = document.querySelector('webview')
+        webview.reload()
       }
     </script>
     
