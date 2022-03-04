@@ -157,6 +157,9 @@ body {
   outline: none;
 }
 *::selection {
+  background: #333333;
+}
+input::selection {
   background: #1E1E1E;
 }
 .maximized #icon {
@@ -164,8 +167,6 @@ body {
 }
 
 #window-title {
-  -webkit-app-region: no-drag;
-  transition-duration: .25s;
   grid-column: 1;
   display: flex;
   align-items: center;
@@ -181,7 +182,11 @@ body {
   white-space: nowrap;
   line-height: 1.5;
 }
-#window-title:hover {
+#window-title a {
+  -webkit-app-region: no-drag;
+  transition-duration: .25s;
+}
+#window-title a:hover {
   color: white;
 }
 

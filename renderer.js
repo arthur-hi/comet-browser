@@ -1,10 +1,8 @@
 var fs = require("fs");
-var home = fs.readFileSync("./comet/home.html").toString('utf-8');
 var tabSystem=document.getElementById('tab-system')
 var tabContainer=document.getElementById('tab-container')
 var topBar=document.getElementById('top-bar')
 var main = document.getElementById("main")
-//main.innerHTML = home
 window.addEventListener('resize', widthTick)
 tabs = document.getElementById("tabs").querySelectorAll("a")
 

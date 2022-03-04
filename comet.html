@@ -11,9 +11,16 @@
     <header id="titlebar">
 
       <div id="drag-region">
-        <a id="window-title" href="#" onclick="button(`comet://home`)">
-          <span><i class="fa-solid fa-house-chimney-window"></i></span>
-        </a>
+        
+        <span id="window-title">
+          <a href="#" onclick="button(`comet://welcome`)">
+            <span><i class="fa-solid fa-house-chimney-window"></i></span>
+          </a>
+          <span style="width: 16px;"></span>
+          <a href="#" onclick="button(`comet://settings`)">
+            <span><i class="fa-solid fa-gear"></i></span>
+          </a>
+        </span>
         <div id="window-controls">
           <div class="button" id="min-button">
             <img class="icon" srcset="icons/min-w-10.png 1x, icons/min-w-12.png 1.25x, icons/min-w-15.png 1.5x, icons/min-w-15.png 1.75x, icons/min-w-20.png 2x, icons/min-w-20.png 2.25x, icons/min-w-24.png 2.5x, icons/min-w-30.png 3x, icons/min-w-30.png 3.5x" draggable="false" />
