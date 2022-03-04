@@ -13,13 +13,20 @@
 <p>
   ## This version of comet is in early development and everything is subject to change.
 </p>
+<br>
 <h1>
- 
+  Screenshot(s)
 </h1>
-<h1>
  <img src="https://user-images.githubusercontent.com/29758156/156629529-4d8c3d6a-e45b-473e-8950-328060cf0812.png">
+
+<br>
+<h1>
+  📦 Download latest (pre-)release
 </h1>
 
+You can download the latest releases from [here.](https://github.com/asanull/comet-browser/releases/tag/pre-release)
+
+<br>
 <br id="rfs">
 <h1>
  ☄️ Running from source
@@ -61,6 +68,7 @@ That's it! you should now be running comet.
 But we can take it a step further...
 
 <br>
+<br>
 <h1>
  🔨 Building from source 
 </h1>
@@ -82,9 +90,12 @@ npm run make
 This will set up Forge's scaffolding and then create a distributable using Forge's make command.
 
 ### 3: Done
-There should now be an 'out' directory created by Forge where the package will be located.
 
 <p>
-  The 'out' directory should look something like this:<br>
-  <img src="https://user-images.githubusercontent.com/29758156/156674176-3072e05d-c951-471b-9a8e-b0cb5309a113.png">
-</p>
+  There should now be an 'out' directory created by Forge where the package will be located.
+  <br>
+  The 'out' directory should look something like this:
+ </p>
+ <img src="https://user-images.githubusercontent.com/29758156/156674176-3072e05d-c951-471b-9a8e-b0cb5309a113.png">
+
+<br>
