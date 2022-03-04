@@ -116,6 +116,7 @@
       }
       function button(value) {
 
+        var focusedTab
         tabs.forEach(tab => {
           if(!tab.classList.contains('focused')){
             tab.className = "tab col-3";
@@ -126,14 +127,21 @@
             tab.className = "tab focused col-3";
             tab.querySelector("#input").style.display = "none"
             tab.querySelector("#title").style.display = null
+            focusedTab=tab
           }
         })
-
+        console.log(focusedTab)
         if(value.substr(0,4)!="http"){
           webview = document.createElement("webview");
           webview.setAttribute("src", `https://${value}`)
-          main.innerHTML = "<p>## Insert .25f transition between sites...</p>"
+          webview.setAttribute("style", `width: 100%; height: 100%`)
+          main.innerHTML=null
           main.appendChild(webview)
+          
+          focusedTab.querySelector("#title").innerText=value
+          webview.addEventListener('dom-ready', () => {
+            focusedTab.querySelector("#title").innerText=webview.getTitle().split(' ')[0]
+          })
         }
         if(value.split('://')[0]=="comet"){
           try {
