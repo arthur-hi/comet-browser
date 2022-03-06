@@ -24,7 +24,7 @@
   📦 Download latest (pre-)release
 </h1>
 
-You can download the latest releases from [here.](https://github.com/asanull/comet-browser/releases/tag/pre-release)
+You can download the latest releases from [here.](https://github.com/asanull/comet-browser/releases)
 
 <br>
 <br id="rfs">
