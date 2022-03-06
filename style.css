@@ -10,6 +10,10 @@ html, body {
   margin: 0;
 }
 
+*, *::after, *::before {
+	-webkit-user-drag: none;
+}
+
 body {
   font-family: "Segoe UI", sans-serif;
   background: #1E1E1E;
@@ -33,18 +37,37 @@ p {
   color: rgba(255,255,255,0.4);
 }
 
-a {
+#tab-system a {
   text-decoration: none;
   color: rgba(255,255,255,0.4);
 }
-a:hover {
+#tab-system a:hover {
   text-decoration: none;
+}
+
+#window-title a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.4);
+}
+#window-title a:hover {
+  text-decoration: none;
+}
+
+#comet span {
+  color: rgba(255,255,255,0.4);
+}
+
+#comet a {
+  text-decoration: none;
+  color: white
 }
 
 /* Styling of window frame and titlebar */
 body {
   border: 1px solid #48545c;
   overflow-y: hidden;
+  user-select: none;
+
 }
 
 #titlebar {
@@ -108,10 +131,10 @@ body {
 }
 
 #tab-system {
-  -webkit-app-region: no-drag;
   color: rgba(255,255,255,0.4);
 }
-#tab-bar {
+.tab {
+  -webkit-app-region: no-drag;
   background-color: #1E1E1E;
   border-radius: 5px;
   padding: 8px;
@@ -119,7 +142,7 @@ body {
   line-height: 1.2;
   transition-duration: .25s;
 }
-#tab-bar:hover {
+.tab:hover {
   background-color: #333333;
   color: white;
   filter: drop-shadow(0 0 0.75rem rgb(15, 15, 15));
@@ -127,7 +150,7 @@ body {
 .tab {
   margin: 8px;
   height: 32px;
-  transition-duration: .25s;
+  max-width: 75%;
 }
 .tab:active {
   background-color: #1E1E1E !important;
@@ -149,6 +172,11 @@ body {
   text-align: center;
   width: auto;
   color: white;
+}
+.tab #title{
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: min-content;
 }
 
 #tab-system .tab-button {
@@ -194,6 +222,32 @@ input::selection {
 }
 #window-title a:hover {
   color: white;
+}
+
+#tabs div {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  width: min-content;
+}
+button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+button {
+  background: #333333;
+  color: rgba(255,255,255,0.4);
+  -webkit-app-region: no-drag;
+  transition-duration: .25s;
+}
+button:hover {
+  color: white;
+  cursor: pointer;
 }
 
 #window-controls {

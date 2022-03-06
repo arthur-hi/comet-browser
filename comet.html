@@ -13,15 +13,15 @@
       <div id="drag-region">
         
         <span id="window-title">
-          <a href="#" onclick="button(`comet://welcome`)">
-            <span><i class="fa-solid fa-house-chimney-window"></i></span>
+          <a href="#" onclick="webview.goBack()">
+            <span><i class="fa-solid fa-arrow-left"></i></span>
           </a>
           <span style="width: 16px;"></span>
-          <a href="#" onclick="button(`comet://settings`)">
-            <span><i class="fa-solid fa-gear"></i></span>
+          <a href="#" onclick="webview.goForward()">
+            <span><i class="fa-solid fa-arrow-right"></i></span>
           </a>
-          <span style="width: 16px;"></span>
-          <a href="#" onclick="reload()">
+          <span style="width: 32px;"></span>
+          <a href="#" onclick="webview.reload()">
             <span><i class="fa-solid fa-arrow-rotate-right"></i></i></span>
           </a>
         </span>
@@ -46,24 +46,19 @@
           <div class="row" id="top-bar">
             <div class="container-fluid" id="tab-container">
               <div class="row" id="tabs">
-                <a class="col-3 tab" id="tab-bar" href="#">
-                  <form onsubmit="lookup(this);return false">
-                    <input id="input" value=""></input>
-                  </form>
-                  <span id="title">New Tab</span>
-                </a>
-                <a class="col-3 tab" id="tab-bar" href="#">
-                  <form onsubmit="lookup(this);return false">
-                    <input id="input" value=""></input>
-                  </form>
-                  <span id="title">New Tab</span>
-                </a>
-                <a class="col-3 tab" id="tab-bar" href="#">
-                  <form onsubmit="lookup(this);return false">
-                    <input id="input" value=""></input>
-                  </form>
-                  <span id="title">New Tab</span>
-                </a>
+                <div id="home">
+                  <button href="#" onclick="button(`comet://welcome`)">
+                    <span><i class="fa-solid fa-house-chimney-window"></i></span>
+                  </button>
+                  <span style="width: 16px;"></span>
+                </div>
+
+                <div id="plus">
+                  <span style="width: 8px;"></span>
+                  <button>
+                    <span><i class="fa-solid fa-plus"></i></i></span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -72,103 +67,94 @@
 
     </header>
 
-    <div id="main"></div>
+    <div id="main">
+      
+    </div>
 
     <script>
       require('./renderer.js')
-      var fs = require("fs");
+      var fs = require("fs")
+      const webview = document.querySelector('webview')
+      
+      var tabs
+      document.getElementById("tabs").addEventListener ("DOMNodeInserted", function() {
+        tabs = document.getElementById("tabs").querySelectorAll("a")
+      })
 
-      var main = document.getElementById("main")
-      tabs = document.getElementById("tabs").querySelectorAll("a")
+      var file = 'file://' + __dirname + `/comet/newtab.html`;
+      webview.setAttribute("src", file)
 
-      function lookup(form) {
-        
-        tabs.forEach(tab => {
-          if(!tab.classList.contains('focused')){
-            tab.className = "tab col-3";
-          }
-        })
-        form.parentElement.className="tab focused-small col-3";
-        form.parentElement.querySelector("#input").style.display = "none"
-        form.parentElement.querySelector("#title").style.display = null
-
-        input = form.querySelector('#input')
-        if(input.value.substr(0,4)!="http"){
-          webview = document.createElement("webview");
-          webview.setAttribute("src", `https://${input.value}`)
-          webview.setAttribute("style", `width: 100%; height: 100%`)
-          main.innerHTML=null
-          main.appendChild(webview)
-        }
-        if(input.value.split('://')[0]=="comet"){
-          try {
-            var page = fs.readFileSync(`./comet/${input.value.split('://')[1]}.html`).toString('utf-8');
-            main.innerHTML = page
-            form.parentElement.querySelector("#title").innerText = input.value.split('://')[1]
-          } catch (error) {
-            main.innerHTML = `
-            <h1>
-              😟 Something went wrong!
-            </h1>
-            <br>
-            <p>
-              ## ${error}
-            </p>
-            `
-          }
-        }
-      }
+      var thisTab
       function button(value) {
 
-        var focusedTab
         tabs.forEach(tab => {
-          if(!tab.classList.contains('focused')){
-            tab.className = "tab col-3";
-          }
-          if(tab.classList.contains('focused')){
-            tab.querySelector("#title").innerText=value.split('://')[1]
+          if(tab.classList.contains('focused')||tab.classList.contains('focused-small')){
             tab.querySelector("#input").value=value
-            tab.className = "tab focused col-3";
             tab.querySelector("#input").style.display = "none"
             tab.querySelector("#title").style.display = null
-            focusedTab=tab
+            thisTab=tab
           }
         })
-        console.log(focusedTab)
-        if(value.substr(0,4)!="http"){
-          webview = document.createElement("webview");
-          webview.setAttribute("src", `https://${value}`)
-          webview.setAttribute("style", `width: 100%; height: 100%`)
-          main.innerHTML=null
-          main.appendChild(webview)
-          
-          focusedTab.querySelector("#title").innerText=value.substr(0,20)
-          webview.addEventListener('dom-ready', () => {
-            focusedTab.querySelector("#title").innerText=webview.getTitle().split(' ')[0]
-          })
-        }
-        if(value.split('://')[0]=="comet"){
-          try {
-            var page = fs.readFileSync(`./comet/${value.split('://')[1]}.html`).toString('utf-8');
-            main.innerHTML = page
-          } catch (error) {
-            main.innerHTML = `
-            <h1>
-              😟 Something went wrong!
-            </h1>
-            <br>
-            <p>
-              ## ${error}
-            </p>
-            `
+        tabs.forEach(tab => {
+          if(value.split('://')[0]=="comet"){
+            var file = 'file://' + __dirname + `/comet/${value.split('://')[1]}.html`;
+            
+            views = document.getElementById("main").querySelectorAll("webview")
+            views.forEach(webview => {
+                if(webview.id==thisTab.id)
+                {
+                  webview.setAttribute("src", file)
+                }
+            })
           }
-        }
+        })
+        
       }
-      function reload() {
-        const webview = document.querySelector('webview')
-        webview.reload()
+      function lookup(form) {
+        value = form.querySelector('#input').value
+        tabs.forEach(tab => {
+          if(!tab.classList.contains('focused')&&!tab.classList.contains('focused-small')){
+            tab.className = "tab";
+          }
+          if(tab.classList.contains('focused')||tab.classList.contains('focused-small')){
+            tab.querySelector("#title").innerText=value.substr(0,20)
+            tab.querySelector("#input").value=value
+            tab.className = "tab focused";
+            tab.querySelector("#input").style.display = "none"
+            tab.querySelector("#title").style.display = null
+            thisTab=tab
+          }
+          if(value.split('://')[0]=="comet"){
+            var file = 'file://' + __dirname + `/comet/${value.split('://')[1]}.html`;
+            views = document.getElementById("main").querySelectorAll("webview")
+            views.forEach(webview => {
+                if(webview.id==thisTab.id)
+                {
+                  webview.setAttribute("src", file)
+                }
+            })
+          }
+          else if(value.substr(0,4)!="http"){
+            views = document.getElementById("main").querySelectorAll("webview")
+            views.forEach(webview => {
+                if(webview.id==thisTab.id)
+                {
+                  webview.setAttribute("src", `https://${value}`)
+                }
+            })
+          }
+          else{
+            views = document.getElementById("main").querySelectorAll("webview")
+            views.forEach(webview => {
+                if(webview.id==thisTab.id)
+                {
+                  webview.setAttribute("src", value)
+                }
+            })
+          }
+        })
       }
     </script>
-    
+
   </body>
 </html>
