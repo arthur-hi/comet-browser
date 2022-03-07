@@ -94,8 +94,8 @@ This will set up Forge's scaffolding and then create a distributable using Forge
 <p>
   There should now be an 'out' directory created by Forge where the package will be located.
   <br>
-  The 'out' directory should look something like this:
+  Said 'out' directory should look something like this:
  </p>
  <img src="https://user-images.githubusercontent.com/29758156/156674176-3072e05d-c951-471b-9a8e-b0cb5309a113.png">
-
+  Note that there are issues with the latest builds of comet as there is a missing directory although it is not required for comet to function.
 <br>
