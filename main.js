@@ -19,8 +19,10 @@ function createWindow () {
             webviewTag: true
         },
         minWidth: 937,
-        minHeight: 493
+        minHeight: 493,
+        show: false
     });
+    mainWindow.webContents.once('did-finish-load', () => mainWindow.show())
 
     // and load the index.html of the app.
     mainWindow.loadFile('comet.html');
