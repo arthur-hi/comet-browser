@@ -336,3 +336,21 @@ button:hover {
 .maximized #max-button {
   display: none;
 }
+
+
+.container-fluid {
+    margin-left: auto;
+    margin-right: auto;
+}
+.container-fluid {
+    width: 100%;
+}
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
