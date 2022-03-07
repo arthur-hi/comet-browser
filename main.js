@@ -17,7 +17,9 @@ function createWindow () {
             contextIsolation: false,
             enableRemoteModule: true,
             webviewTag: true
-        }
+        },
+        minWidth: 937,
+        minHeight: 493
     });
 
     // and load the index.html of the app.
